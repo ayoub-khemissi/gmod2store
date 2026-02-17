@@ -1,0 +1,150 @@
+@import "tailwindcss";
+
+@plugin '../hero.ts';
+
+@source '../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+    --font-sans: var(--font-body), "Zilla Slab", serif;
+    --font-heading: var(--font-heading), "Lexend", sans-serif;
+    --font-mono: monospace;
+
+    /* Glassmorphism tokens */
+    --color-glass-bg: rgba(255, 255, 255, 0.05);
+    --color-glass-border: rgba(255, 255, 255, 0.1);
+    --color-glass-bg-light: rgba(255, 255, 255, 0.6);
+    --color-glass-border-light: rgba(255, 255, 255, 0.3);
+    --blur-glass: 16px;
+    --blur-glass-strong: 24px;
+
+    --color-glow-primary: rgba(99, 102, 241, 0.4);
+    --color-glow-secondary: rgba(168, 85, 247, 0.4);
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Skip to content */
+.skip-to-content {
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    padding: 0.75rem 1.5rem;
+    background: hsl(var(--heroui-primary));
+    color: white;
+    border-radius: 0 0 0.5rem 0.5rem;
+    font-weight: 600;
+    transition: top 0.2s ease;
+}
+
+.skip-to-content:focus {
+    top: 0;
+}
+
+/* Glass utilities */
+.glass {
+    background: var(--color-glass-bg);
+    backdrop-filter: blur(var(--blur-glass));
+    -webkit-backdrop-filter: blur(var(--blur-glass));
+    border: 1px solid var(--color-glass-border);
+}
+
+:is(.light *) .glass,
+.light .glass {
+    background: var(--color-glass-bg-light);
+    border-color: var(--color-glass-border-light);
+}
+
+.glass-card {
+    background: var(--color-glass-bg);
+    backdrop-filter: blur(var(--blur-glass));
+    -webkit-backdrop-filter: blur(var(--blur-glass));
+    border: 1px solid var(--color-glass-border);
+    border-radius: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+:is(.light *) .glass-card,
+.light .glass-card {
+    background: var(--color-glass-bg-light);
+    border-color: var(--color-glass-border-light);
+}
+
+:is(.light *) .glass-card:hover,
+.light .glass-card:hover {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.glass-subtle {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+:is(.light *) .glass-subtle,
+.light .glass-subtle {
+    background: rgba(255, 255, 255, 0.4);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Glow effects */
+.glow-primary {
+    box-shadow: 0 0 20px var(--color-glow-primary), 0 0 60px rgba(99, 102, 241, 0.15);
+}
+
+.glow-secondary {
+    box-shadow: 0 0 20px var(--color-glow-secondary), 0 0 60px rgba(168, 85, 247, 0.15);
+}
+
+.text-glow {
+    text-shadow: 0 0 20px var(--color-glow-primary);
+}
+
+/* Background utilities */
+.bg-grid {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                       linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+}
+
+:is(.light *) .bg-grid,
+.light .bg-grid {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+                       linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+}
+
+.bg-radial-glow {
+    background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(99, 102, 241, 0.15), transparent);
+}
+
+:is(.light *) .bg-radial-glow,
+.light .bg-radial-glow {
+    background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(99, 102, 241, 0.08), transparent);
+}
+
+.bg-gradient-mesh {
+    background:
+        radial-gradient(at 20% 80%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
+        radial-gradient(at 80% 20%, rgba(168, 85, 247, 0.12) 0px, transparent 50%),
+        radial-gradient(at 50% 50%, rgba(236, 72, 153, 0.08) 0px, transparent 50%);
+}
+
+:is(.light *) .bg-gradient-mesh,
+.light .bg-gradient-mesh {
+    background:
+        radial-gradient(at 20% 80%, rgba(99, 102, 241, 0.06) 0px, transparent 50%),
+        radial-gradient(at 80% 20%, rgba(168, 85, 247, 0.06) 0px, transparent 50%),
+        radial-gradient(at 50% 50%, rgba(236, 72, 153, 0.04) 0px, transparent 50%);
+}
