@@ -67,7 +67,7 @@ export const ProductInfo = ({
 
       <div className="flex items-center justify-between">
         <span className="text-3xl font-bold text-primary">
-          {product.price === 0 ? "Free" : `$${product.price.toFixed(2)}`}
+          {Number(product.price) === 0 ? "Free" : `$${Number(product.price).toFixed(2)}`}
         </span>
 
         {owned ? (
