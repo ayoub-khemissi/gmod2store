@@ -24,7 +24,7 @@ export const UserMenu = ({ username, avatarUrl, role }: UserMenuProps) => {
         <Avatar
           isBordered
           as="button"
-          className="transition-transform"
+          className="transition-transform cursor-pointer"
           name={username}
           size="sm"
           src={avatarUrl}
