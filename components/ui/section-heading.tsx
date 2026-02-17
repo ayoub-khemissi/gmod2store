@@ -20,11 +20,7 @@ export const SectionHeading = ({
   align = "left",
 }: SectionHeadingProps) => {
   return (
-    <div
-      className={
-        align === "center" ? "text-center" : ""
-      }
-    >
+    <div className={align === "center" ? "text-center" : ""}>
       <h2
         className={title({
           size,

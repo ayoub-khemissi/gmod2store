@@ -13,18 +13,14 @@ interface SalesTrend {
 }
 
 export const SalesChart = () => {
-  const [period, setPeriod] = useState<"daily" | "weekly" | "monthly">(
-    "daily",
-  );
+  const [period, setPeriod] = useState<"daily" | "weekly" | "monthly">("daily");
   const [data, setData] = useState<SalesTrend[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchData = useCallback(async () => {
     setIsLoading(true);
     try {
-      const res = await fetch(
-        `/api/creator/sales?period=${period}&days=30`,
-      );
+      const res = await fetch(`/api/creator/sales?period=${period}&days=30`);
       const json = await res.json();
 
       if (json.success) {
@@ -72,10 +68,7 @@ export const SalesChart = () => {
         ) : (
           <div className="flex items-end gap-1 h-48">
             {data.map((d, i) => (
-              <div
-                key={i}
-                className="flex-1 flex flex-col items-center gap-1"
-              >
+              <div key={i} className="flex-1 flex flex-col items-center gap-1">
                 <div
                   className="w-full bg-primary/60 rounded-t-md hover:bg-primary transition-colors min-h-[2px]"
                   style={{

@@ -29,9 +29,7 @@ export const ProductReviewsWrapper = ({
   const [reviews, setReviews] = useState(initialReviews);
   const [total, setTotal] = useState(totalReviews);
 
-  const hasReviewed = reviews.some(
-    (r) => user && r.username === user.username,
-  );
+  const hasReviewed = reviews.some((r) => user && r.username === user.username);
 
   const handleSubmitReview = useCallback(
     async (rating: number, comment: string) => {
@@ -48,9 +46,7 @@ export const ProductReviewsWrapper = ({
       }
 
       // Refresh reviews
-      const reviewsRes = await fetch(
-        `/api/products/${productSlug}/reviews`,
-      );
+      const reviewsRes = await fetch(`/api/products/${productSlug}/reviews`);
       const reviewsData = await reviewsRes.json();
 
       if (reviewsData.success) {

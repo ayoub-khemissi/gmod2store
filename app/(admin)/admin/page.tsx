@@ -17,12 +17,42 @@ interface OverviewStats {
 }
 
 const statCards = [
-  { key: "totalUsers" as const, label: "Total Users", href: "/admin/users", color: "primary" as const },
-  { key: "publishedProducts" as const, label: "Published Products", href: "/admin/products?status=published", color: "secondary" as const },
-  { key: "pendingProducts" as const, label: "Pending Review", href: "/admin/products", color: "primary" as const },
-  { key: "totalRevenue" as const, label: "Platform Revenue", prefix: "$", color: "secondary" as const },
-  { key: "openTickets" as const, label: "Open Tickets", href: "/admin/tickets", color: "primary" as const },
-  { key: "unresolvedContacts" as const, label: "Unresolved Contacts", href: "/admin/contacts", color: "primary" as const },
+  {
+    key: "totalUsers" as const,
+    label: "Total Users",
+    href: "/admin/users",
+    color: "primary" as const,
+  },
+  {
+    key: "publishedProducts" as const,
+    label: "Published Products",
+    href: "/admin/products?status=published",
+    color: "secondary" as const,
+  },
+  {
+    key: "pendingProducts" as const,
+    label: "Pending Review",
+    href: "/admin/products",
+    color: "primary" as const,
+  },
+  {
+    key: "totalRevenue" as const,
+    label: "Platform Revenue",
+    prefix: "$",
+    color: "secondary" as const,
+  },
+  {
+    key: "openTickets" as const,
+    label: "Open Tickets",
+    href: "/admin/tickets",
+    color: "primary" as const,
+  },
+  {
+    key: "unresolvedContacts" as const,
+    label: "Unresolved Contacts",
+    href: "/admin/contacts",
+    color: "primary" as const,
+  },
 ];
 
 export default function AdminOverviewPage() {

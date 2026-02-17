@@ -1,5 +1,7 @@
 "use client";
 
+import type { UserRole } from "@/types/user";
+
 import { useState, useEffect } from "react";
 import {
   Table,
@@ -15,7 +17,6 @@ import { Select, SelectItem } from "@heroui/select";
 import { Skeleton } from "@heroui/skeleton";
 
 import { title } from "@/components/primitives";
-import type { UserRole } from "@/types/user";
 
 interface AdminUser {
   id: number;
@@ -111,11 +112,7 @@ export default function AdminUsersPage() {
                 </span>
               </TableCell>
               <TableCell>
-                <Chip
-                  color={roleColorMap[user.role]}
-                  size="sm"
-                  variant="flat"
-                >
+                <Chip color={roleColorMap[user.role]} size="sm" variant="flat">
                   {user.role}
                 </Chip>
               </TableCell>

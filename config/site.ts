@@ -4,9 +4,7 @@ export const siteConfig = {
   name: "s&box Store",
   description:
     "The marketplace for s&box creators and players. Discover gamemodes, tools, maps, and assets for Source 2.",
-  navItems: [
-    { label: "Browse", href: "/browse" },
-  ],
+  navItems: [{ label: "Browse", href: "/browse" }],
   navMenuItems: [
     { label: "Browse", href: "/browse" },
     { label: "Library", href: "/library" },

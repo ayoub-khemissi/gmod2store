@@ -1,11 +1,17 @@
-import { execute, query } from "@/lib/db";
-import { updateProduct, getProductById, getProductImages } from "@/services/product.service";
-import { getLatestVersion } from "@/services/version.service";
+import { RowDataPacket } from "mysql2/promise";
+
 import { runStaticAnalysis } from "./static-analysis";
 import { runAiReview } from "./ai-review";
 import { runContentCheck } from "./content-moderation";
 import { runSandbox } from "./sandbox";
-import { RowDataPacket } from "mysql2/promise";
+
+import { execute, query } from "@/lib/db";
+import {
+  updateProduct,
+  getProductById,
+  getProductImages,
+} from "@/services/product.service";
+import { getLatestVersion } from "@/services/version.service";
 
 export async function runGuardPipeline(productId: number): Promise<number> {
   const product = await getProductById(productId);
@@ -89,10 +95,9 @@ export async function runGuardPipeline(productId: number): Promise<number> {
 
     return reportId;
   } catch (error) {
-    await execute(
-      "UPDATE guard_reports SET status = 'failed' WHERE id = ?",
-      [reportId],
-    );
+    await execute("UPDATE guard_reports SET status = 'failed' WHERE id = ?", [
+      reportId,
+    ]);
 
     await updateProduct(productId, { status: "rejected" });
     throw error;

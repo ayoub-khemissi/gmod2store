@@ -1,5 +1,7 @@
 "use client";
 
+import type { Notification } from "@/types/notification";
+
 import { useState, useEffect, useCallback } from "react";
 import { Badge } from "@heroui/badge";
 import { Button } from "@heroui/button";
@@ -12,8 +14,6 @@ import {
 } from "@heroui/dropdown";
 import { Skeleton } from "@heroui/skeleton";
 import NextLink from "next/link";
-
-import type { Notification } from "@/types/notification";
 
 export const NotificationPanel = () => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -46,9 +46,7 @@ export const NotificationPanel = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ markAllRead: true }),
     });
-    setNotifications((prev) =>
-      prev.map((n) => ({ ...n, is_read: true })),
-    );
+    setNotifications((prev) => prev.map((n) => ({ ...n, is_read: true })));
     setUnread(0);
   };
 
@@ -71,7 +69,13 @@ export const NotificationPanel = () => {
   return (
     <Dropdown placement="bottom-end">
       <DropdownTrigger>
-        <Button isIconOnly aria-label="Notifications" radius="full" size="sm" variant="light">
+        <Button
+          isIconOnly
+          aria-label="Notifications"
+          radius="full"
+          size="sm"
+          variant="light"
+        >
           <Badge
             color="danger"
             content={unread > 0 ? unread : undefined}
@@ -124,7 +128,12 @@ export const NotificationPanel = () => {
         </DropdownSection>
         <DropdownSection>
           {notifications.length === 0 ? (
-            <DropdownItem key="empty" isReadOnly className="cursor-default" textValue="No notifications">
+            <DropdownItem
+              key="empty"
+              isReadOnly
+              className="cursor-default"
+              textValue="No notifications"
+            >
               <p className="text-sm text-default-400 text-center py-4">
                 No notifications yet.
               </p>

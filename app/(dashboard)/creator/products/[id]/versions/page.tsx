@@ -10,9 +10,7 @@ export default function VersionsPage() {
   return (
     <>
       <h1 className={title({ size: "sm" })}>Manage Versions</h1>
-      <p className="text-default-500">
-        Version management for product #{id}.
-      </p>
+      <p className="text-default-500">Version management for product #{id}.</p>
     </>
   );
 }

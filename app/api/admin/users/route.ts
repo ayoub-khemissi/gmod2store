@@ -1,9 +1,10 @@
+import type { User } from "@/types/user";
+
 import { RowDataPacket } from "mysql2/promise";
 
 import { apiSuccess, apiError } from "@/lib/api-response";
 import { requireRole } from "@/lib/auth";
 import { query } from "@/lib/db";
-import type { User } from "@/types/user";
 
 interface UserRow extends RowDataPacket, User {}
 

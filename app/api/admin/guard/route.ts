@@ -1,9 +1,10 @@
+import type { GuardReport } from "@/types/guard";
+
 import { RowDataPacket } from "mysql2/promise";
 
 import { apiSuccess, apiError } from "@/lib/api-response";
 import { requireRole } from "@/lib/auth";
 import { query } from "@/lib/db";
-import type { GuardReport } from "@/types/guard";
 
 interface GuardRow extends RowDataPacket, GuardReport {
   product_title: string;

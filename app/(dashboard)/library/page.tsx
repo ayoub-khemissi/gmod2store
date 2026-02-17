@@ -1,10 +1,11 @@
 "use client";
 
+import type { LibraryItem } from "@/services/library.service";
+
 import { useState, useEffect } from "react";
 
 import { title } from "@/components/primitives";
 import { LibraryGrid } from "@/components/library/library-grid";
-import type { LibraryItem } from "@/services/library.service";
 
 export default function LibraryPage() {
   const [items, setItems] = useState<LibraryItem[]>([]);

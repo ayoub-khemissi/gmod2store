@@ -1,5 +1,7 @@
 "use client";
 
+import type { Product } from "@/types/product";
+
 import { Chip } from "@heroui/chip";
 import { Avatar } from "@heroui/avatar";
 import { Divider } from "@heroui/divider";
@@ -8,7 +10,6 @@ import NextLink from "next/link";
 import { StarRating } from "./star-rating";
 
 import { LoadingButton } from "@/components/ui/loading-button";
-import type { Product } from "@/types/product";
 
 interface ProductInfoProps {
   product: Product;

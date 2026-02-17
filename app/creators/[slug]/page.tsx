@@ -25,8 +25,7 @@ export async function generateMetadata({
       creator.bio ?? `Browse products by ${creator.username} on s&box Store.`,
     openGraph: {
       title: `${creator.username} — s&box Store`,
-      description:
-        creator.bio ?? `Browse products by ${creator.username}.`,
+      description: creator.bio ?? `Browse products by ${creator.username}.`,
       images: creator.avatar_url ? [creator.avatar_url] : [],
     },
   };
@@ -67,24 +66,25 @@ export default async function CreatorStorefrontPage({
         {creator.bio && (
           <p className="text-default-500 max-w-lg">{creator.bio}</p>
         )}
-        {creator.social_links && Object.keys(creator.social_links).length > 0 && (
-          <div className="flex gap-3">
-            {Object.entries(creator.social_links).map(
-              ([key, url]) =>
-                url && (
-                  <a
-                    key={key}
-                    className="text-default-400 hover:text-primary transition-colors text-sm capitalize"
-                    href={url as string}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    {key}
-                  </a>
-                ),
-            )}
-          </div>
-        )}
+        {creator.social_links &&
+          Object.keys(creator.social_links).length > 0 && (
+            <div className="flex gap-3">
+              {Object.entries(creator.social_links).map(
+                ([key, url]) =>
+                  url && (
+                    <a
+                      key={key}
+                      className="text-default-400 hover:text-primary transition-colors text-sm capitalize"
+                      href={url as string}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      {key}
+                    </a>
+                  ),
+              )}
+            </div>
+          )}
       </div>
 
       {/* Products */}

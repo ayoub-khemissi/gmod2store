@@ -1,5 +1,7 @@
 "use client";
 
+import type { GuardStatus } from "@/types/guard";
+
 import { useState, useEffect } from "react";
 import {
   Table,
@@ -14,7 +16,6 @@ import { Skeleton } from "@heroui/skeleton";
 
 import { title } from "@/components/primitives";
 import { QualityScoreBadge } from "@/components/guard/quality-score-badge";
-import type { GuardStatus } from "@/types/guard";
 
 interface GuardReportRow {
   id: number;
@@ -27,7 +28,10 @@ interface GuardReportRow {
   created_at: string;
 }
 
-const statusColorMap: Record<GuardStatus, "default" | "warning" | "success" | "danger" | "primary"> = {
+const statusColorMap: Record<
+  GuardStatus,
+  "default" | "warning" | "success" | "danger" | "primary"
+> = {
   pending: "default",
   running: "warning",
   passed: "success",

@@ -1,7 +1,8 @@
+import type { ProductVersion } from "@/types/product";
+
 import { RowDataPacket } from "mysql2/promise";
 
 import { query, execute } from "@/lib/db";
-import type { ProductVersion } from "@/types/product";
 
 interface VersionRow extends RowDataPacket, ProductVersion {}
 

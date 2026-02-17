@@ -3,7 +3,10 @@ import { NextRequest } from "next/server";
 import { apiSuccess, apiError } from "@/lib/api-response";
 import { ApiError } from "@/lib/api-error";
 import { requireAuth } from "@/lib/auth";
-import { getTicketWithMessages, updateTicketStatus } from "@/services/ticket.service";
+import {
+  getTicketWithMessages,
+  updateTicketStatus,
+} from "@/services/ticket.service";
 
 export async function POST(
   _request: NextRequest,
@@ -15,7 +18,10 @@ export async function POST(
     const data = await getTicketWithMessages(Number(id));
 
     if (!data) throw ApiError.notFound("Ticket not found");
-    if (data.ticket.requester_id !== session.user.id && session.user.role !== "admin") {
+    if (
+      data.ticket.requester_id !== session.user.id &&
+      session.user.role !== "admin"
+    ) {
       throw ApiError.forbidden();
     }
 

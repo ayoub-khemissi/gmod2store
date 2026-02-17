@@ -1,7 +1,13 @@
+import type {
+  Ticket,
+  TicketMessage,
+  TicketCategory,
+  TicketStatus,
+} from "@/types/ticket";
+
 import { RowDataPacket } from "mysql2/promise";
 
 import { query, execute } from "@/lib/db";
-import type { Ticket, TicketMessage, TicketCategory, TicketStatus } from "@/types/ticket";
 
 interface TicketRow extends RowDataPacket, Ticket {}
 interface MessageRow extends RowDataPacket, TicketMessage {
@@ -26,10 +32,9 @@ export async function createTicket(data: {
     [result.insertId, data.requester_id, data.message],
   );
 
-  const rows = await query<TicketRow[]>(
-    "SELECT * FROM tickets WHERE id = ?",
-    [result.insertId],
-  );
+  const rows = await query<TicketRow[]>("SELECT * FROM tickets WHERE id = ?", [
+    result.insertId,
+  ]);
 
   return rows[0]!;
 }
@@ -51,9 +56,7 @@ export async function getTickets(
   );
 }
 
-export async function getAllTickets(
-  status?: TicketStatus,
-): Promise<Ticket[]> {
+export async function getAllTickets(status?: TicketStatus): Promise<Ticket[]> {
   if (status) {
     return query<TicketRow[]>(
       "SELECT * FROM tickets WHERE status = ? ORDER BY updated_at DESC",
@@ -61,9 +64,7 @@ export async function getAllTickets(
     );
   }
 
-  return query<TicketRow[]>(
-    "SELECT * FROM tickets ORDER BY updated_at DESC",
-  );
+  return query<TicketRow[]>("SELECT * FROM tickets ORDER BY updated_at DESC");
 }
 
 export async function getTicketWithMessages(

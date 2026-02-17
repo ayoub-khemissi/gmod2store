@@ -1,5 +1,7 @@
 "use client";
 
+import type { UserRole } from "@/types/user";
+
 import {
   Dropdown,
   DropdownTrigger,
@@ -9,8 +11,6 @@ import {
 } from "@heroui/dropdown";
 import { Avatar } from "@heroui/avatar";
 import { useRouter } from "next/navigation";
-
-import type { UserRole } from "@/types/user";
 
 import { useAuth } from "@/lib/auth-context";
 
@@ -44,7 +44,7 @@ export const UserMenu = ({ username, avatarUrl, role }: UserMenuProps) => {
       </DropdownTrigger>
       <DropdownMenu aria-label="User menu">
         <DropdownSection showDivider>
-          <DropdownItem key="profile" className="h-14 gap-2" isReadOnly>
+          <DropdownItem key="profile" isReadOnly className="h-14 gap-2">
             <p className="font-semibold">Signed in as</p>
             <p className="font-semibold">{username}</p>
           </DropdownItem>

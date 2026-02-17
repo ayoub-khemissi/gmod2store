@@ -38,9 +38,7 @@ export default function ContactPage() {
   if (submitted) {
     return (
       <section className="flex flex-col items-center justify-center gap-4 py-20">
-        <h1 className={title({ size: "sm", color: "green" })}>
-          Message Sent!
-        </h1>
+        <h1 className={title({ size: "sm", color: "green" })}>Message Sent!</h1>
         <p className="text-default-500">
           We&apos;ll get back to you as soon as possible.
         </p>

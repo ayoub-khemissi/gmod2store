@@ -16,13 +16,17 @@ export async function GET(request: NextRequest) {
     const steamId = await verifySteamLogin(params);
 
     if (!steamId) {
-      return NextResponse.redirect(`${appUrl}/login?error=steam_verification_failed`);
+      return NextResponse.redirect(
+        `${appUrl}/login?error=steam_verification_failed`,
+      );
     }
 
     const profile = await getSteamProfile(steamId);
 
     if (!profile) {
-      return NextResponse.redirect(`${appUrl}/login?error=steam_profile_failed`);
+      return NextResponse.redirect(
+        `${appUrl}/login?error=steam_profile_failed`,
+      );
     }
 
     let user = await findUserBySteamId(steamId);

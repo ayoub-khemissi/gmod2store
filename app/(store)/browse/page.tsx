@@ -1,8 +1,9 @@
 import { Metadata } from "next";
 
+import { BrowseClient } from "./browse-client";
+
 import { title } from "@/components/primitives";
 import { getProducts } from "@/services/product.service";
-import { BrowseClient } from "./browse-client";
 
 interface BrowsePageProps {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -25,13 +26,17 @@ export async function generateMetadata({
 export default async function BrowsePage({ searchParams }: BrowsePageProps) {
   const params = await searchParams;
 
-  const category = typeof params.category === "string" ? params.category : undefined;
+  const category =
+    typeof params.category === "string" ? params.category : undefined;
   const search = typeof params.search === "string" ? params.search : undefined;
   const sort = typeof params.sort === "string" ? params.sort : undefined;
   const page = typeof params.page === "string" ? Number(params.page) : 1;
-  const minPrice = typeof params.minPrice === "string" ? Number(params.minPrice) : undefined;
-  const maxPrice = typeof params.maxPrice === "string" ? Number(params.maxPrice) : undefined;
-  const minRating = typeof params.minRating === "string" ? Number(params.minRating) : undefined;
+  const minPrice =
+    typeof params.minPrice === "string" ? Number(params.minPrice) : undefined;
+  const maxPrice =
+    typeof params.maxPrice === "string" ? Number(params.maxPrice) : undefined;
+  const minRating =
+    typeof params.minRating === "string" ? Number(params.minRating) : undefined;
 
   let result;
 
@@ -39,7 +44,12 @@ export default async function BrowsePage({ searchParams }: BrowsePageProps) {
     result = await getProducts({
       category,
       search,
-      sort: sort as "newest" | "popular" | "price_asc" | "price_desc" | "rating",
+      sort: sort as
+        | "newest"
+        | "popular"
+        | "price_asc"
+        | "price_desc"
+        | "rating",
       page,
       minPrice,
       maxPrice,

@@ -19,7 +19,13 @@ export async function GET(request: NextRequest) {
       minRating: params.has("minRating")
         ? Number(params.get("minRating"))
         : undefined,
-      sort: (params.get("sort") as "newest" | "popular" | "price_asc" | "price_desc" | "rating") ?? undefined,
+      sort:
+        (params.get("sort") as
+          | "newest"
+          | "popular"
+          | "price_asc"
+          | "price_desc"
+          | "rating") ?? undefined,
       page: params.has("page") ? Number(params.get("page")) : 1,
       limit: params.has("limit") ? Number(params.get("limit")) : 20,
     });

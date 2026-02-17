@@ -19,7 +19,9 @@ export async function POST(request: NextRequest) {
     }
 
     if (file.size > MAX_SIZE) {
-      throw ApiError.badRequest(`File too large. Maximum size is ${MAX_SIZE / 1024 / 1024}MB`);
+      throw ApiError.badRequest(
+        `File too large. Maximum size is ${MAX_SIZE / 1024 / 1024}MB`,
+      );
     }
 
     const buffer = Buffer.from(await file.arrayBuffer());

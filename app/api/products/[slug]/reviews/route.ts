@@ -53,7 +53,9 @@ export async function POST(
     const purchased = await hasUserPurchased(session.user.id, product.id);
 
     if (!purchased) {
-      throw ApiError.forbidden("You must purchase this product before reviewing");
+      throw ApiError.forbidden(
+        "You must purchase this product before reviewing",
+      );
     }
 
     const reviewed = await hasUserReviewed(session.user.id, product.id);

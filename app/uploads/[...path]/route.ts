@@ -1,6 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
 import fs from "fs/promises";
 import path from "path";
+
+import { NextRequest, NextResponse } from "next/server";
 
 const UPLOAD_DIR = process.env.UPLOAD_DIR ?? "./uploads";
 

@@ -33,10 +33,9 @@ export async function POST(
     const body = await request.json();
 
     // Manual override
-    await execute(
-      "UPDATE guard_reports SET status = 'override' WHERE id = ?",
-      [Number(reportId)],
-    );
+    await execute("UPDATE guard_reports SET status = 'override' WHERE id = ?", [
+      Number(reportId),
+    ]);
 
     return apiSuccess({ overridden: true });
   } catch (error) {

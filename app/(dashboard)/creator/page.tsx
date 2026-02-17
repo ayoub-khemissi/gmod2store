@@ -1,5 +1,7 @@
 "use client";
 
+import type { Product } from "@/types/product";
+
 import { Tabs, Tab } from "@heroui/tabs";
 import { Button } from "@heroui/button";
 import { Skeleton } from "@heroui/skeleton";
@@ -12,7 +14,6 @@ import { SalesChart } from "@/components/creator/sales-chart";
 import { ProductManagementTable } from "@/components/creator/product-management-table";
 import { ProfileEditor } from "@/components/creator/profile-editor";
 import { useAuth } from "@/lib/auth-context";
-import type { Product } from "@/types/product";
 
 interface Stats {
   total_products: number;
@@ -120,10 +121,7 @@ export default function CreatorDashboardPage() {
         </Tab>
         <Tab key="products" title="Products">
           <div className="mt-4">
-            <ProductManagementTable
-              isLoading={isLoading}
-              products={products}
-            />
+            <ProductManagementTable isLoading={isLoading} products={products} />
           </div>
         </Tab>
         <Tab key="profile" title="Profile">
@@ -143,12 +141,7 @@ export default function CreatorDashboardPage() {
       </Tabs>
 
       <div className="mt-4">
-        <Button
-          as="a"
-          href="/api/creator/export"
-          size="sm"
-          variant="flat"
-        >
+        <Button as="a" href="/api/creator/export" size="sm" variant="flat">
           Export Sales CSV
         </Button>
       </div>

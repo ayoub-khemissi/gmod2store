@@ -1,5 +1,7 @@
 "use client";
 
+import type { Product, ProductImage } from "@/types/product";
+
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Input } from "@heroui/input";
@@ -13,7 +15,6 @@ import { Alert } from "@heroui/alert";
 import { title } from "@/components/primitives";
 import { LoadingButton } from "@/components/ui/loading-button";
 import { productCategories } from "@/config/categories";
-import type { Product, ProductImage } from "@/types/product";
 
 export default function EditProductPage() {
   const { id } = useParams();
@@ -110,9 +111,15 @@ export default function EditProductPage() {
 
       if (json.success) {
         setProduct(json.data);
-        setSaveMessage({ text: "Product updated successfully", type: "success" });
+        setSaveMessage({
+          text: "Product updated successfully",
+          type: "success",
+        });
       } else {
-        setSaveMessage({ text: json.error ?? "Failed to save", type: "danger" });
+        setSaveMessage({
+          text: json.error ?? "Failed to save",
+          type: "danger",
+        });
       }
     } catch {
       setSaveMessage({ text: "Failed to save", type: "danger" });
@@ -221,8 +228,8 @@ export default function EditProductPage() {
 
       {saveMessage && (
         <Alert
-          color={saveMessage.type}
           isClosable
+          color={saveMessage.type}
           onClose={() => setSaveMessage(null)}
         >
           {saveMessage.text}
@@ -287,7 +294,9 @@ export default function EditProductPage() {
           <Input
             label="Tags"
             placeholder={
-              tags.length === 0 ? "Type a tag and press Enter" : "Add another tag..."
+              tags.length === 0
+                ? "Type a tag and press Enter"
+                : "Add another tag..."
             }
             value={tagInput}
             variant="bordered"
@@ -368,9 +377,9 @@ export default function EditProductPage() {
 
         <input
           ref={imageInputRef}
+          multiple
           accept="image/*"
           className="hidden"
-          multiple
           type="file"
           onChange={(e) => {
             if (e.target.files) handleImageUpload(e.target.files);

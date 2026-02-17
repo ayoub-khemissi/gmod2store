@@ -1,6 +1,4 @@
-export const mainNavItems = [
-  { label: "Browse", href: "/browse" },
-] as const;
+export const mainNavItems = [{ label: "Browse", href: "/browse" }] as const;
 
 export const userMenuItems = [
   { label: "Library", href: "/library" },

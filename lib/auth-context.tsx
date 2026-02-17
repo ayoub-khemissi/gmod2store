@@ -1,5 +1,7 @@
 "use client";
 
+import type { UserRole } from "@/types/user";
+
 import {
   createContext,
   useContext,
@@ -7,8 +9,6 @@ import {
   useEffect,
   useCallback,
 } from "react";
-
-import type { UserRole } from "@/types/user";
 
 interface AuthUser {
   id: number;

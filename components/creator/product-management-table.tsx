@@ -1,5 +1,7 @@
 "use client";
 
+import type { Product } from "@/types/product";
+
 import {
   Table,
   TableHeader,
@@ -19,14 +21,15 @@ import {
 import { Button } from "@heroui/button";
 import NextLink from "next/link";
 
-import type { Product } from "@/types/product";
-
 interface ProductManagementTableProps {
   products: Product[];
   isLoading?: boolean;
 }
 
-const statusColorMap: Record<string, "default" | "primary" | "success" | "warning" | "danger"> = {
+const statusColorMap: Record<
+  string,
+  "default" | "primary" | "success" | "warning" | "danger"
+> = {
   draft: "default",
   pending: "warning",
   published: "success",

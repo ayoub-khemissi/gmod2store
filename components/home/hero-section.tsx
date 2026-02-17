@@ -20,9 +20,7 @@ export const HeroSection = () => {
           })}
         >
           The marketplace for{" "}
-          <span className={title({ size: "lg", color: "violet" })}>
-            s&box
-          </span>
+          <span className={title({ size: "lg", color: "violet" })}>s&box</span>
         </h1>
         <h1
           className={title({

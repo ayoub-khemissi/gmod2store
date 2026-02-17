@@ -6,9 +6,7 @@ export interface SandboxResult {
   output: string;
 }
 
-export async function runSandbox(
-  _archiveUrl: string,
-): Promise<SandboxResult> {
+export async function runSandbox(_archiveUrl: string): Promise<SandboxResult> {
   // In production, spin up a sandboxed container and execute the code
   // Monitor resource usage and detect crashes/hangs
   return {

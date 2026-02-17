@@ -1,5 +1,7 @@
 "use client";
 
+import type { WizardData } from "./upload-wizard";
+
 import { useState } from "react";
 import { Input } from "@heroui/input";
 import { Select, SelectItem } from "@heroui/select";
@@ -7,7 +9,6 @@ import { Button } from "@heroui/button";
 import { Chip } from "@heroui/chip";
 
 import { productCategories } from "@/config/categories";
-import type { WizardData } from "./upload-wizard";
 
 interface StepMetadataProps {
   data: WizardData;
@@ -83,7 +84,12 @@ export const StepMetadata = ({
 
       <Input
         isRequired
-        description={data.description.trim().length > 0 && data.description.trim().length < 10 ? `${10 - data.description.trim().length} more characters needed` : undefined}
+        description={
+          data.description.trim().length > 0 &&
+          data.description.trim().length < 10
+            ? `${10 - data.description.trim().length} more characters needed`
+            : undefined
+        }
         label="Description"
         placeholder="Describe your product in detail..."
         value={data.description}
@@ -118,7 +124,11 @@ export const StepMetadata = ({
       <div className="flex flex-col gap-1.5">
         <Input
           label="Tags"
-          placeholder={data.tags.length === 0 ? "Type a tag and press Enter" : "Add another tag..."}
+          placeholder={
+            data.tags.length === 0
+              ? "Type a tag and press Enter"
+              : "Add another tag..."
+          }
           value={tagInput}
           variant="bordered"
           onKeyDown={handleTagKeyDown}
@@ -144,11 +154,7 @@ export const StepMetadata = ({
         <Button variant="flat" onPress={onPrev}>
           Back
         </Button>
-        <Button
-          color="primary"
-          isDisabled={!canContinue}
-          onPress={onNext}
-        >
+        <Button color="primary" isDisabled={!canContinue} onPress={onNext}>
           Next: Add Images
         </Button>
       </div>

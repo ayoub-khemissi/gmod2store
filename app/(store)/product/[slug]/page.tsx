@@ -1,6 +1,8 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { ProductReviewsWrapper } from "./reviews-wrapper";
+
 import {
   getProductBySlug,
   getProductImages,
@@ -13,7 +15,6 @@ import { ProductGallery } from "@/components/product/product-gallery";
 import { ProductInfo } from "@/components/product/product-info";
 import { ProductDescription } from "@/components/product/product-description";
 import { ProductVersions } from "@/components/product/product-versions";
-import { ProductReviewsWrapper } from "./reviews-wrapper";
 
 interface ProductPageProps {
   params: Promise<{ slug: string }>;

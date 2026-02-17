@@ -1,8 +1,10 @@
+import type { License } from "@/types/license";
+
 import crypto from "crypto";
+
 import { RowDataPacket } from "mysql2/promise";
 
 import { query, execute } from "@/lib/db";
-import type { License } from "@/types/license";
 
 interface LicenseRow extends RowDataPacket, License {}
 interface CountRow extends RowDataPacket {
@@ -13,12 +15,7 @@ function generateLicenseKey(): string {
   const segments: string[] = [];
 
   for (let i = 0; i < 4; i++) {
-    segments.push(
-      crypto
-        .randomBytes(2)
-        .toString("hex")
-        .toUpperCase(),
-    );
+    segments.push(crypto.randomBytes(2).toString("hex").toUpperCase());
   }
 
   return segments.join("-");

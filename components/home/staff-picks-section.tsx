@@ -1,5 +1,7 @@
 "use client";
 
+import type { Product } from "@/types/product";
+
 import { CardBody } from "@heroui/card";
 import { Chip } from "@heroui/chip";
 import { Skeleton } from "@heroui/skeleton";
@@ -8,7 +10,6 @@ import NextLink from "next/link";
 
 import { SectionHeading } from "@/components/ui";
 import { GlassCard } from "@/components/ui/glass-card";
-import type { Product } from "@/types/product";
 
 interface StaffPicksSectionProps {
   products: Product[];

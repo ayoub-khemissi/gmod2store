@@ -47,10 +47,7 @@ export async function saveImage(
 }
 
 export async function deleteFile(filePath: string): Promise<void> {
-  const fullPath = path.join(
-    UPLOAD_DIR,
-    filePath.replace(/^\/uploads\//, ""),
-  );
+  const fullPath = path.join(UPLOAD_DIR, filePath.replace(/^\/uploads\//, ""));
 
   try {
     await fs.unlink(fullPath);

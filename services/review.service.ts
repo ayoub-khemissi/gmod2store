@@ -1,7 +1,8 @@
+import type { Review } from "@/types/review";
+
 import { RowDataPacket } from "mysql2/promise";
 
 import { query, execute } from "@/lib/db";
-import type { Review } from "@/types/review";
 
 interface ReviewRow extends RowDataPacket, Review {}
 
@@ -66,10 +67,9 @@ export async function createReview(data: {
     [data.product_id, data.product_id, data.product_id],
   );
 
-  const rows = await query<ReviewRow[]>(
-    "SELECT * FROM reviews WHERE id = ?",
-    [result.insertId],
-  );
+  const rows = await query<ReviewRow[]>("SELECT * FROM reviews WHERE id = ?", [
+    result.insertId,
+  ]);
 
   return rows[0]!;
 }

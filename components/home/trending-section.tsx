@@ -1,11 +1,12 @@
 "use client";
 
+import type { Product } from "@/types/product";
+
 import { ScrollShadow } from "@heroui/scroll-shadow";
 import { Skeleton } from "@heroui/skeleton";
 
 import { SectionHeading } from "@/components/ui";
 import { ProductCard } from "@/components/product/product-card";
-import type { Product } from "@/types/product";
 
 interface TrendingSectionProps {
   products: Product[];
@@ -35,10 +36,7 @@ export const TrendingSection = ({
           ))}
         </div>
       ) : (
-        <ScrollShadow
-          className="flex gap-4 mt-6 pb-4"
-          orientation="horizontal"
-        >
+        <ScrollShadow className="flex gap-4 mt-6 pb-4" orientation="horizontal">
           {products.map((product) => (
             <div key={product.id} className="min-w-[280px] max-w-[280px]">
               <ProductCard

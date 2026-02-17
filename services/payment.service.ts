@@ -1,3 +1,5 @@
+import type { Transaction } from "@/types/payment";
+
 import Stripe from "stripe";
 import { RowDataPacket } from "mysql2/promise";
 
@@ -5,7 +7,6 @@ import { query, execute, transaction } from "@/lib/db";
 import { PLATFORM_FEE_PERCENTAGE } from "@/lib/constants";
 import { createLicense } from "@/services/license.service";
 import { createNotification } from "@/services/notification.service";
-import type { Transaction } from "@/types/payment";
 
 interface TransactionRow extends RowDataPacket, Transaction {}
 
@@ -129,7 +130,10 @@ export async function getTransactionHistory(
   userId: number,
   type: "buyer" | "seller" = "buyer",
 ): Promise<Transaction[]> {
-  const column = type === "buyer" ? "buyer_id" : "product_id IN (SELECT id FROM products WHERE seller_id = ?)";
+  const column =
+    type === "buyer"
+      ? "buyer_id"
+      : "product_id IN (SELECT id FROM products WHERE seller_id = ?)";
   const sql =
     type === "buyer"
       ? "SELECT * FROM transactions WHERE buyer_id = ? ORDER BY created_at DESC"

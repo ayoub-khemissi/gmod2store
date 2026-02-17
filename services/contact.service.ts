@@ -1,7 +1,8 @@
+import type { Contact } from "@/types/contact";
+
 import { RowDataPacket } from "mysql2/promise";
 
 import { query, execute } from "@/lib/db";
-import type { Contact } from "@/types/contact";
 
 interface ContactRow extends RowDataPacket, Contact {}
 
@@ -33,9 +34,7 @@ export async function submitContact(data: {
   return rows[0]!;
 }
 
-export async function getContacts(
-  resolved?: boolean,
-): Promise<Contact[]> {
+export async function getContacts(resolved?: boolean): Promise<Contact[]> {
   if (resolved !== undefined) {
     return query<ContactRow[]>(
       "SELECT * FROM contacts WHERE is_resolved = ? ORDER BY created_at DESC",
@@ -43,9 +42,7 @@ export async function getContacts(
     );
   }
 
-  return query<ContactRow[]>(
-    "SELECT * FROM contacts ORDER BY created_at DESC",
-  );
+  return query<ContactRow[]>("SELECT * FROM contacts ORDER BY created_at DESC");
 }
 
 export async function resolveContact(contactId: number): Promise<void> {

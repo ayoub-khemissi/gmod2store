@@ -1,5 +1,7 @@
 "use client";
 
+import type { ApiKey } from "@/types/api-key";
+
 import { useState, useEffect } from "react";
 import {
   Table,
@@ -25,7 +27,6 @@ import { Code } from "@heroui/code";
 
 import { title } from "@/components/primitives";
 import { LoadingButton } from "@/components/ui/loading-button";
-import type { ApiKey } from "@/types/api-key";
 
 export default function ApiKeysPage() {
   const [keys, setKeys] = useState<ApiKey[]>([]);

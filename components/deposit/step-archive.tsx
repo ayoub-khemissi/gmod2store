@@ -1,10 +1,11 @@
 "use client";
 
+import type { WizardData } from "./upload-wizard";
+
 import { useState, useRef } from "react";
 import { Progress } from "@heroui/progress";
 
 import { LoadingButton } from "@/components/ui/loading-button";
-import type { WizardData } from "./upload-wizard";
 
 interface StepArchiveProps {
   data: WizardData;
@@ -74,17 +75,17 @@ export const StepArchive = ({ data, onUpdate, onNext }: StepArchiveProps) => {
         tabIndex={0}
         onClick={() => inputRef.current?.click()}
         onDragOver={(e) => e.preventDefault()}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            inputRef.current?.click();
-          }
-        }}
         onDrop={(e) => {
           e.preventDefault();
           const file = e.dataTransfer.files[0];
 
           if (file) handleUpload(file);
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            inputRef.current?.click();
+          }
         }}
       >
         <input

@@ -1,3 +1,5 @@
+import type { Product } from "@/types/product";
+
 import { Metadata } from "next";
 
 import { HeroSection } from "@/components/home/hero-section";
@@ -9,7 +11,6 @@ import {
   getStaffPicks,
   getTopCreators,
 } from "@/services/product.service";
-import type { Product } from "@/types/product";
 
 export const metadata: Metadata = {
   title: "s&box Store — Marketplace for s&box Creators and Players",
@@ -25,7 +26,14 @@ export const metadata: Metadata = {
 export default async function Home() {
   let trending: Product[] = [];
   let staffPicks: Product[] = [];
-  let topCreators: { id: number; username: string; avatar_url: string; slug: string | null; product_count: number; total_sales: number }[] = [];
+  let topCreators: {
+    id: number;
+    username: string;
+    avatar_url: string;
+    slug: string | null;
+    product_count: number;
+    total_sales: number;
+  }[] = [];
 
   try {
     [trending, staffPicks, topCreators] = await Promise.all([

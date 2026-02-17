@@ -1,3 +1,5 @@
+import type { Payout } from "@/types/payment";
+
 import { NextRequest } from "next/server";
 import { RowDataPacket } from "mysql2/promise";
 
@@ -6,7 +8,6 @@ import { ApiError } from "@/lib/api-error";
 import { requireNotBanned } from "@/lib/auth";
 import { query } from "@/lib/db";
 import { requestPayout } from "@/services/payment.service";
-import type { Payout } from "@/types/payment";
 
 interface PayoutRow extends RowDataPacket, Payout {}
 

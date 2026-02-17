@@ -1,7 +1,8 @@
+import type { Product, ProductImage, ProductVersion } from "@/types/product";
+
 import { RowDataPacket } from "mysql2/promise";
 
 import { query, execute } from "@/lib/db";
-import type { Product, ProductImage, ProductVersion } from "@/types/product";
 
 interface ProductRow extends RowDataPacket, Product {}
 interface ProductImageRow extends RowDataPacket, ProductImage {}
@@ -153,9 +154,7 @@ export async function getProductVersions(
   );
 }
 
-export async function getTrendingProducts(
-  limit = 8,
-): Promise<Product[]> {
+export async function getTrendingProducts(limit = 8): Promise<Product[]> {
   return query<ProductRow[]>(
     "SELECT * FROM products WHERE status = 'published' ORDER BY sales_count DESC, view_count DESC LIMIT ?",
     [limit],
@@ -196,8 +195,13 @@ export async function getTopCreators(limit = 6): Promise<CreatorRow[]> {
 export async function searchProducts(
   term: string,
   limit = 5,
-): Promise<Pick<Product, "id" | "title" | "slug" | "category" | "thumbnail_url">[]> {
-  return query<(RowDataPacket & Pick<Product, "id" | "title" | "slug" | "category" | "thumbnail_url">)[]>(
+): Promise<
+  Pick<Product, "id" | "title" | "slug" | "category" | "thumbnail_url">[]
+> {
+  return query<
+    (RowDataPacket &
+      Pick<Product, "id" | "title" | "slug" | "category" | "thumbnail_url">)[]
+  >(
     `SELECT id, title, slug, category, thumbnail_url
      FROM products
      WHERE status = 'published' AND (title LIKE ? OR MATCH(title, description) AGAINST(? IN BOOLEAN MODE))
@@ -244,7 +248,15 @@ export async function updateProduct(
   data: Partial<
     Pick<
       Product,
-      "title" | "slug" | "description" | "price" | "category" | "status" | "thumbnail_url" | "tags" | "is_staff_pick"
+      | "title"
+      | "slug"
+      | "description"
+      | "price"
+      | "category"
+      | "status"
+      | "thumbnail_url"
+      | "tags"
+      | "is_staff_pick"
     >
   >,
 ): Promise<void> {
@@ -254,9 +266,7 @@ export async function updateProduct(
   for (const [key, value] of Object.entries(data)) {
     if (value !== undefined) {
       fields.push(`${key} = ?`);
-      values.push(
-        key === "tags" ? JSON.stringify(value) : value,
-      );
+      values.push(key === "tags" ? JSON.stringify(value) : value);
     }
   }
 

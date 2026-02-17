@@ -27,7 +27,10 @@ export const FindingList = ({ findings }: FindingListProps) => {
   return (
     <div className="flex flex-col gap-2">
       {findings.map((finding, i) => (
-        <div key={i} className="flex items-start gap-2 p-2 glass-subtle rounded-lg">
+        <div
+          key={i}
+          className="flex items-start gap-2 p-2 glass-subtle rounded-lg"
+        >
           <Chip
             color={severityColorMap[finding.severity] ?? "default"}
             size="sm"

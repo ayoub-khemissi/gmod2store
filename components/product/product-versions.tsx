@@ -1,9 +1,9 @@
 "use client";
 
+import type { ProductVersion } from "@/types/product";
+
 import { Accordion, AccordionItem } from "@heroui/accordion";
 import { Chip } from "@heroui/chip";
-
-import type { ProductVersion } from "@/types/product";
 
 interface ProductVersionsProps {
   versions: ProductVersion[];

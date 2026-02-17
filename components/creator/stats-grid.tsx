@@ -19,10 +19,30 @@ interface StatsGridProps {
 }
 
 const statItems = [
-  { key: "total_revenue" as const, label: "Total Revenue", prefix: "$", decimals: 2 },
-  { key: "total_sales" as const, label: "Total Sales", prefix: "", decimals: 0 },
-  { key: "total_products" as const, label: "Products", prefix: "", decimals: 0 },
-  { key: "total_views" as const, label: "Total Views", prefix: "", decimals: 0 },
+  {
+    key: "total_revenue" as const,
+    label: "Total Revenue",
+    prefix: "$",
+    decimals: 2,
+  },
+  {
+    key: "total_sales" as const,
+    label: "Total Sales",
+    prefix: "",
+    decimals: 0,
+  },
+  {
+    key: "total_products" as const,
+    label: "Products",
+    prefix: "",
+    decimals: 0,
+  },
+  {
+    key: "total_views" as const,
+    label: "Total Views",
+    prefix: "",
+    decimals: 0,
+  },
 ];
 
 export const StatsGrid = ({ stats, isLoading }: StatsGridProps) => {

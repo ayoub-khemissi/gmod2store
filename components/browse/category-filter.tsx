@@ -11,7 +11,11 @@ interface CategoryFilterProps {
 
 export const CategoryFilter = ({ selected, onChange }: CategoryFilterProps) => {
   return (
-    <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by category">
+    <div
+      aria-label="Filter by category"
+      className="flex flex-wrap gap-2"
+      role="group"
+    >
       <Chip
         className="cursor-pointer"
         color={selected === null ? "primary" : "default"}

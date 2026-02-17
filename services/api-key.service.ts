@@ -1,8 +1,10 @@
+import type { ApiKey } from "@/types/api-key";
+
 import crypto from "crypto";
+
 import { RowDataPacket } from "mysql2/promise";
 
 import { query, execute } from "@/lib/db";
-import type { ApiKey } from "@/types/api-key";
 
 interface ApiKeyRow extends RowDataPacket, ApiKey {}
 
@@ -19,17 +21,14 @@ export async function createApiKey(
     [userId, name, keyHash, keyPrefix],
   );
 
-  const rows = await query<ApiKeyRow[]>(
-    "SELECT * FROM api_keys WHERE id = ?",
-    [result.insertId],
-  );
+  const rows = await query<ApiKeyRow[]>("SELECT * FROM api_keys WHERE id = ?", [
+    result.insertId,
+  ]);
 
   return { apiKey: rows[0]!, fullKey: rawKey };
 }
 
-export async function verifyApiKey(
-  key: string,
-): Promise<ApiKey | null> {
+export async function verifyApiKey(key: string): Promise<ApiKey | null> {
   const keyHash = crypto.createHash("sha256").update(key).digest("hex");
   const rows = await query<ApiKeyRow[]>(
     "SELECT * FROM api_keys WHERE key_hash = ? AND is_active = TRUE",

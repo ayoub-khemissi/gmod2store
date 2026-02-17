@@ -1,4 +1,9 @@
-export type GuardStatus = "pending" | "running" | "passed" | "failed" | "override";
+export type GuardStatus =
+  | "pending"
+  | "running"
+  | "passed"
+  | "failed"
+  | "override";
 
 export interface GuardReport {
   id: number;

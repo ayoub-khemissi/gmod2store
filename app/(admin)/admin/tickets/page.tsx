@@ -28,7 +28,10 @@ interface AdminTicket {
   updated_at: string;
 }
 
-const statusColorMap: Record<string, "default" | "warning" | "danger" | "success"> = {
+const statusColorMap: Record<
+  string,
+  "default" | "warning" | "danger" | "success"
+> = {
   open: "warning",
   escalated: "danger",
   resolved: "success",

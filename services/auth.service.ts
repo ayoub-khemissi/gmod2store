@@ -1,8 +1,10 @@
+import type { User, Session, UserRole } from "@/types/user";
+
 import crypto from "crypto";
+
 import { RowDataPacket } from "mysql2/promise";
 
 import { query, execute } from "@/lib/db";
-import type { User, Session, UserRole } from "@/types/user";
 
 interface UserRow extends RowDataPacket, User {}
 
@@ -23,9 +25,7 @@ interface SessionWithUserRow extends RowDataPacket {
   updated_at: Date;
 }
 
-export async function findUserBySteamId(
-  steamId: string,
-): Promise<User | null> {
+export async function findUserBySteamId(steamId: string): Promise<User | null> {
   const rows = await query<UserRow[]>(
     "SELECT * FROM users WHERE steam_id = ? LIMIT 1",
     [steamId],
@@ -58,7 +58,18 @@ export async function createUser(data: {
 
 export async function updateUser(
   id: number,
-  data: Partial<Pick<User, "username" | "avatar_url" | "bio" | "banner_url" | "slug" | "social_links" | "role">>,
+  data: Partial<
+    Pick<
+      User,
+      | "username"
+      | "avatar_url"
+      | "bio"
+      | "banner_url"
+      | "slug"
+      | "social_links"
+      | "role"
+    >
+  >,
 ): Promise<void> {
   const fields: string[] = [];
   const values: unknown[] = [];

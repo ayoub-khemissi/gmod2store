@@ -1,8 +1,9 @@
+import type { Product } from "@/types/product";
+import type { User } from "@/types/user";
+
 import { RowDataPacket } from "mysql2/promise";
 
 import { query } from "@/lib/db";
-import type { Product } from "@/types/product";
-import type { User } from "@/types/user";
 
 interface ProductRow extends RowDataPacket, Product {}
 interface UserRow extends RowDataPacket, User {}
@@ -114,9 +115,7 @@ export async function getPerProductBreakdown(
   );
 }
 
-export async function getCreatorBySlug(
-  slug: string,
-): Promise<User | null> {
+export async function getCreatorBySlug(slug: string): Promise<User | null> {
   const rows = await query<UserRow[]>(
     "SELECT * FROM users WHERE slug = ? AND role IN ('creator', 'admin') LIMIT 1",
     [slug],
@@ -147,8 +146,5 @@ export async function updateCreatorProfile(
   if (fields.length === 0) return;
   values.push(userId);
 
-  await query(
-    `UPDATE users SET ${fields.join(", ")} WHERE id = ?`,
-    values,
-  );
+  await query(`UPDATE users SET ${fields.join(", ")} WHERE id = ?`, values);
 }

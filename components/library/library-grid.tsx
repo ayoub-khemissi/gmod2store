@@ -1,5 +1,7 @@
 "use client";
 
+import type { LibraryItem } from "@/services/library.service";
+
 import { CardBody } from "@heroui/card";
 import { Image } from "@heroui/image";
 import { Chip } from "@heroui/chip";
@@ -7,9 +9,9 @@ import { Badge } from "@heroui/badge";
 import { Skeleton } from "@heroui/skeleton";
 import NextLink from "next/link";
 
-import { GlassCard } from "@/components/ui/glass-card";
 import { DownloadButton } from "./download-button";
-import type { LibraryItem } from "@/services/library.service";
+
+import { GlassCard } from "@/components/ui/glass-card";
 
 interface LibraryGridProps {
   items: LibraryItem[];

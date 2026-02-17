@@ -3,8 +3,9 @@
 import { CardBody } from "@heroui/card";
 import { Chip } from "@heroui/chip";
 
-import { GlassCard } from "@/components/ui/glass-card";
 import { QualityScoreBadge } from "./quality-score-badge";
+
+import { GlassCard } from "@/components/ui/glass-card";
 
 interface GuardReportCardProps {
   status: string;
@@ -12,7 +13,10 @@ interface GuardReportCardProps {
   createdAt: string;
 }
 
-const statusColorMap: Record<string, "default" | "primary" | "success" | "warning" | "danger"> = {
+const statusColorMap: Record<
+  string,
+  "default" | "primary" | "success" | "warning" | "danger"
+> = {
   pending: "default",
   running: "primary",
   passed: "success",
@@ -42,9 +46,7 @@ export const GuardReportCard = ({
             </span>
           </div>
         </div>
-        {qualityScore !== null && (
-          <QualityScoreBadge score={qualityScore} />
-        )}
+        {qualityScore !== null && <QualityScoreBadge score={qualityScore} />}
       </CardBody>
     </GlassCard>
   );

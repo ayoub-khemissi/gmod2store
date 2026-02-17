@@ -21,8 +21,7 @@ export async function POST(
     }
 
     const body = await request.json();
-    const version =
-      body.version ?? (await getNextVersion(product.id));
+    const version = body.version ?? (await getNextVersion(product.id));
 
     const newVersion = await createVersion({
       product_id: product.id,
@@ -34,11 +33,7 @@ export async function POST(
 
     // Notify buyers if product is published
     if (product.status === "published") {
-      notifyBuyersOfUpdate(
-        product.id,
-        product.title,
-        version,
-      ).catch(() => {});
+      notifyBuyersOfUpdate(product.id, product.title, version).catch(() => {});
     }
 
     return apiSuccess(newVersion, 201);

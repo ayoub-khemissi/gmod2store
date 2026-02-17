@@ -1,14 +1,13 @@
+import type { User, UserRole, Session } from "@/types/user";
+
 import { cookies } from "next/headers";
 
 import { getSessionWithUser } from "@/services/auth.service";
 import { ApiError } from "@/lib/api-error";
-import type { User, UserRole, Session } from "@/types/user";
 
 const SESSION_COOKIE = "session_id";
 
-export async function getSession(): Promise<
-  (Session & { user: User }) | null
-> {
+export async function getSession(): Promise<(Session & { user: User }) | null> {
   const cookieStore = await cookies();
   const sessionId = cookieStore.get(SESSION_COOKIE)?.value;
 

@@ -1,10 +1,10 @@
 "use client";
 
+import type { WizardData } from "./upload-wizard";
+
 import { Button } from "@heroui/button";
 import { Spinner } from "@heroui/spinner";
 import { useRef, useState } from "react";
-
-import type { WizardData } from "./upload-wizard";
 
 interface StepImagesProps {
   data: WizardData;
@@ -67,7 +67,10 @@ export const StepImages = ({
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {data.imageUrls.map((url, index) => (
-          <div key={index} className="relative group rounded-xl overflow-hidden">
+          <div
+            key={index}
+            className="relative group rounded-xl overflow-hidden"
+          >
             <img
               alt={`Image ${index + 1}`}
               className="aspect-video object-cover w-full"
@@ -112,9 +115,9 @@ export const StepImages = ({
 
       <input
         ref={inputRef}
+        multiple
         accept="image/*"
         className="hidden"
-        multiple
         type="file"
         onChange={(e) => {
           if (e.target.files) handleUpload(e.target.files);

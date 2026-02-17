@@ -1,7 +1,8 @@
+import type { Notification } from "@/types/notification";
+
 import { RowDataPacket } from "mysql2/promise";
 
 import { query, execute } from "@/lib/db";
-import type { Notification } from "@/types/notification";
 
 interface NotificationRow extends RowDataPacket, Notification {}
 interface CountRow extends RowDataPacket {

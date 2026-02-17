@@ -1,5 +1,7 @@
 "use client";
 
+import type { Product } from "@/types/product";
+
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 import { Pagination } from "@heroui/pagination";
@@ -8,7 +10,6 @@ import { CategoryFilter } from "@/components/browse/category-filter";
 import { FilterSidebar } from "@/components/browse/filter-sidebar";
 import { ActiveFilters } from "@/components/browse/active-filters";
 import { ProductGrid } from "@/components/product/product-grid";
-import type { Product } from "@/types/product";
 
 interface BrowseClientProps {
   initialProducts: Product[];
@@ -93,9 +94,7 @@ export const BrowseClient = ({
 
       <ActiveFilters
         filters={activeFilters}
-        onClearAll={() =>
-          router.push("/browse")
-        }
+        onClearAll={() => router.push("/browse")}
         onRemove={(key) => updateParams({ [key]: null })}
       />
 
@@ -129,9 +128,7 @@ export const BrowseClient = ({
                 showControls
                 page={initialPage}
                 total={initialTotalPages}
-                onChange={(page) =>
-                  updateParams({ page: page.toString() })
-                }
+                onChange={(page) => updateParams({ page: page.toString() })}
               />
             </div>
           )}

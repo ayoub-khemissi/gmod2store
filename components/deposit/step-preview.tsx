@@ -1,14 +1,22 @@
 "use client";
 
+import type { WizardData } from "./upload-wizard";
+
 import { Chip } from "@heroui/chip";
 import { Image } from "@heroui/image";
 import { Button } from "@heroui/button";
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@heroui/modal";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
+} from "@heroui/modal";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { LoadingButton } from "@/components/ui/loading-button";
-import type { WizardData } from "./upload-wizard";
 
 interface StepPreviewProps {
   data: WizardData;

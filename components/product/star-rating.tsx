@@ -22,7 +22,11 @@ export const StarRating = ({
   onChange,
 }: StarRatingProps) => {
   return (
-    <div className="flex gap-0.5" role={interactive ? "radiogroup" : "img"} aria-label={`Rating: ${rating} out of ${maxRating} stars`}>
+    <div
+      aria-label={`Rating: ${rating} out of ${maxRating} stars`}
+      className="flex gap-0.5"
+      role={interactive ? "radiogroup" : "img"}
+    >
       {Array.from({ length: maxRating }, (_, i) => {
         const filled = i < Math.round(rating);
 

@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+
 import mysql from "mysql2/promise";
 
 async function runMigrations() {
@@ -25,7 +26,7 @@ async function runMigrations() {
 
   // Get already-run migrations
   const [rows] = await connection.query<mysql.RowDataPacket[]>(
-    "SELECT name FROM _migrations ORDER BY id"
+    "SELECT name FROM _migrations ORDER BY id",
   );
   const executed = new Set(rows.map((r) => r.name));
 
@@ -37,6 +38,7 @@ async function runMigrations() {
     .sort();
 
   let ran = 0;
+
   for (const file of files) {
     if (executed.has(file)) {
       console.log(`  [skip] ${file}`);
@@ -44,6 +46,7 @@ async function runMigrations() {
     }
 
     const sql = fs.readFileSync(path.join(migrationsDir, file), "utf-8");
+
     console.log(`  [run]  ${file}`);
     await connection.query(sql);
     await connection.execute("INSERT INTO _migrations (name) VALUES (?)", [

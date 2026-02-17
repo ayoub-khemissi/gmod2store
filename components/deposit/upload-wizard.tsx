@@ -52,7 +52,9 @@ export const UploadWizard = () => {
             <span
               key={i}
               className={
-                i <= currentStep ? "text-primary font-semibold" : "text-default-400"
+                i <= currentStep
+                  ? "text-primary font-semibold"
+                  : "text-default-400"
               }
             >
               {step}
@@ -87,9 +89,7 @@ export const UploadWizard = () => {
           onUpdate={updateData}
         />
       )}
-      {currentStep === 3 && (
-        <StepPreview data={data} onPrev={prev} />
-      )}
+      {currentStep === 3 && <StepPreview data={data} onPrev={prev} />}
     </div>
   );
 };

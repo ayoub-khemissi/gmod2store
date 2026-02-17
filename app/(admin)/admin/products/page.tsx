@@ -28,7 +28,10 @@ interface AdminProduct {
   created_at: string;
 }
 
-const statusColorMap: Record<string, "default" | "warning" | "success" | "danger"> = {
+const statusColorMap: Record<
+  string,
+  "default" | "warning" | "success" | "danger"
+> = {
   draft: "default",
   pending: "warning",
   published: "success",

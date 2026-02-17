@@ -1,5 +1,7 @@
 "use client";
 
+import type { Contact } from "@/types/contact";
+
 import { useState, useEffect } from "react";
 import {
   Table,
@@ -14,7 +16,6 @@ import { Skeleton } from "@heroui/skeleton";
 
 import { title } from "@/components/primitives";
 import { LoadingButton } from "@/components/ui/loading-button";
-import type { Contact } from "@/types/contact";
 
 export default function AdminContactsPage() {
   const [contacts, setContacts] = useState<Contact[]>([]);

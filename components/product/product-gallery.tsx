@@ -1,10 +1,10 @@
 "use client";
 
+import type { ProductImage } from "@/types/product";
+
 import { Image } from "@heroui/image";
 import { Modal, ModalContent, ModalBody, useDisclosure } from "@heroui/modal";
 import { useState } from "react";
-
-import type { ProductImage } from "@/types/product";
 
 interface ProductGalleryProps {
   images: ProductImage[];

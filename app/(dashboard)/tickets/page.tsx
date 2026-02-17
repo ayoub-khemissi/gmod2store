@@ -1,5 +1,7 @@
 "use client";
 
+import type { Ticket } from "@/types/ticket";
+
 import { useState, useEffect } from "react";
 import { Chip } from "@heroui/chip";
 import { Button } from "@heroui/button";
@@ -19,9 +21,11 @@ import NextLink from "next/link";
 import { title } from "@/components/primitives";
 import { LoadingButton } from "@/components/ui/loading-button";
 import { GlassCard } from "@/components/ui/glass-card";
-import type { Ticket } from "@/types/ticket";
 
-const statusColorMap: Record<string, "default" | "primary" | "success" | "warning" | "danger"> = {
+const statusColorMap: Record<
+  string,
+  "default" | "primary" | "success" | "warning" | "danger"
+> = {
   open: "primary",
   in_progress: "warning",
   resolved: "success",
@@ -91,7 +95,12 @@ export default function TicketsPage() {
       ) : (
         <div className="flex flex-col gap-3">
           {tickets.map((ticket) => (
-            <GlassCard key={ticket.id} isPressable as={NextLink} href={`/tickets/${ticket.id}`}>
+            <GlassCard
+              key={ticket.id}
+              isPressable
+              as={NextLink}
+              href={`/tickets/${ticket.id}`}
+            >
               <div className="p-4 flex items-center justify-between">
                 <div>
                   <p className="font-semibold">{ticket.subject}</p>
