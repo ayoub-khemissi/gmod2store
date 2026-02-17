@@ -26,7 +26,18 @@ export async function GET(
     const page = Number(request.nextUrl.searchParams.get("page") ?? "1");
     const result = await getProductReviews(product.id, page);
 
-    return apiSuccess(result);
+    // If authenticated, include review eligibility info
+    const session = await getSession();
+    let canReview = false;
+
+    if (session) {
+      const purchased = await hasUserPurchased(session.user.id, product.id);
+      const reviewed = await hasUserReviewed(session.user.id, product.id);
+
+      canReview = purchased && !reviewed;
+    }
+
+    return apiSuccess({ ...result, canReview });
   } catch (error) {
     return apiError(error);
   }

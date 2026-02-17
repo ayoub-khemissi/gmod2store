@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 
 import { ProductReviews } from "@/components/product/product-reviews";
 import { useAuth } from "@/lib/auth-context";
@@ -18,18 +18,37 @@ interface ProductReviewsWrapperProps {
   initialReviews: ReviewItem[];
   totalReviews: number;
   productSlug: string;
+  initialCanReview?: boolean;
 }
 
 export const ProductReviewsWrapper = ({
   initialReviews,
   totalReviews,
   productSlug,
+  initialCanReview = false,
 }: ProductReviewsWrapperProps) => {
   const { user } = useAuth();
   const [reviews, setReviews] = useState(initialReviews);
   const [total, setTotal] = useState(totalReviews);
+  const [canReview, setCanReview] = useState(initialCanReview);
 
-  const hasReviewed = reviews.some((r) => user && r.username === user.username);
+  // Fetch review eligibility when user logs in client-side
+  useEffect(() => {
+    if (!user) {
+      setCanReview(false);
+
+      return;
+    }
+
+    fetch(`/api/products/${productSlug}/reviews?page=1`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          setCanReview(data.data.canReview);
+        }
+      })
+      .catch(() => {});
+  }, [user, productSlug]);
 
   const handleSubmitReview = useCallback(
     async (rating: number, comment: string) => {
@@ -52,6 +71,7 @@ export const ProductReviewsWrapper = ({
       if (reviewsData.success) {
         setReviews(reviewsData.data.reviews);
         setTotal(reviewsData.data.total);
+        setCanReview(reviewsData.data.canReview);
       }
     },
     [productSlug],
@@ -59,7 +79,8 @@ export const ProductReviewsWrapper = ({
 
   return (
     <ProductReviews
-      canReview={!!user && !hasReviewed}
+      canReview={canReview}
+      needsPurchase={!!user && !canReview}
       productSlug={productSlug}
       reviews={reviews}
       total={total}

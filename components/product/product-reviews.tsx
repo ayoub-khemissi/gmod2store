@@ -24,6 +24,7 @@ interface ProductReviewsProps {
   total: number;
   productSlug: string;
   canReview: boolean;
+  needsPurchase?: boolean;
   onSubmitReview?: (rating: number, comment: string) => Promise<void>;
 }
 
@@ -31,6 +32,7 @@ export const ProductReviews = ({
   reviews,
   total,
   canReview,
+  needsPurchase,
   onSubmitReview,
 }: ProductReviewsProps) => {
   const { user } = useAuth();
@@ -83,6 +85,16 @@ export const ProductReviews = ({
             >
               Submit
             </LoadingButton>
+          </div>
+          <Divider className="mt-6" />
+        </div>
+      )}
+
+      {/* Purchase notice */}
+      {needsPurchase && !canReview && (
+        <div className="mb-6">
+          <div className="rounded-xl bg-default-100 px-4 py-3 text-sm text-default-500">
+            You must purchase this product to write a review.
           </div>
           <Divider className="mt-6" />
         </div>
