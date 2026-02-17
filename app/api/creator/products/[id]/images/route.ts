@@ -26,15 +26,31 @@ export async function POST(
       throw ApiError.badRequest("Maximum 10 images per product");
     }
 
-    const formData = await request.formData();
-    const file = formData.get("image") as File | null;
+    const contentType = request.headers.get("content-type") ?? "";
+    let url: string;
 
-    if (!file) {
-      throw ApiError.badRequest("No image provided");
+    if (contentType.includes("application/json")) {
+      // Associate an already-uploaded image URL
+      const body = await request.json();
+
+      if (!body.url || typeof body.url !== "string") {
+        throw ApiError.badRequest("No image URL provided");
+      }
+      url = body.url;
+    } else {
+      // Upload a new image file
+      const formData = await request.formData();
+      const file = formData.get("image") as File | null;
+
+      if (!file) {
+        throw ApiError.badRequest("No image provided");
+      }
+
+      const buffer = Buffer.from(await file.arrayBuffer());
+
+      url = await saveImage(buffer, file.name);
     }
 
-    const buffer = Buffer.from(await file.arrayBuffer());
-    const url = await saveImage(buffer, file.name);
     const sortOrder = existingImages.length;
 
     await execute(
