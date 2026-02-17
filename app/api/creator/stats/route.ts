@@ -1,10 +1,10 @@
 import { apiSuccess, apiError } from "@/lib/api-response";
-import { requireRole } from "@/lib/auth";
+import { requireNotBanned } from "@/lib/auth";
 import { getCreatorStats } from "@/services/creator.service";
 
 export async function GET() {
   try {
-    const session = await requireRole(["creator", "admin"]);
+    const session = await requireNotBanned();
     const stats = await getCreatorStats(session.user.id);
 
     return apiSuccess(stats);

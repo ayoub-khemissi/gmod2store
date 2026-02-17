@@ -1,12 +1,12 @@
 import { NextRequest } from "next/server";
 
 import { apiSuccess, apiError } from "@/lib/api-response";
-import { requireRole } from "@/lib/auth";
+import { requireNotBanned } from "@/lib/auth";
 import { getSalesTrends } from "@/services/creator.service";
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await requireRole(["creator", "admin"]);
+    const session = await requireNotBanned();
     const period =
       (request.nextUrl.searchParams.get("period") as
         | "daily"

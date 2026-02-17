@@ -2,7 +2,7 @@ import { NextRequest } from "next/server";
 
 import { apiSuccess, apiError } from "@/lib/api-response";
 import { ApiError } from "@/lib/api-error";
-import { requireRole } from "@/lib/auth";
+import { requireNotBanned } from "@/lib/auth";
 import { getProductById, getProductImages } from "@/services/product.service";
 import { execute, query } from "@/lib/db";
 import { saveImage, deleteFile } from "@/services/upload.service";
@@ -12,7 +12,7 @@ export async function POST(
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    const session = await requireRole(["creator", "admin"]);
+    const session = await requireNotBanned();
     const { id } = await params;
     const product = await getProductById(Number(id));
 
@@ -61,7 +61,7 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    const session = await requireRole(["creator", "admin"]);
+    const session = await requireNotBanned();
     const { id } = await params;
     const product = await getProductById(Number(id));
 

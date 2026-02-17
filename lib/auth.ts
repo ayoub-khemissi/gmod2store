@@ -27,6 +27,16 @@ export async function requireAuth(): Promise<Session & { user: User }> {
   return session;
 }
 
+export async function requireNotBanned(): Promise<Session & { user: User }> {
+  const session = await requireAuth();
+
+  if (session.user.is_banned) {
+    throw ApiError.forbidden("Your account is banned from submitting");
+  }
+
+  return session;
+}
+
 export async function requireRole(
   roles: UserRole[],
 ): Promise<Session & { user: User }> {

@@ -76,7 +76,7 @@ export const ProductManagementTable = ({
               </Chip>
             </TableCell>
             <TableCell>{product.category}</TableCell>
-            <TableCell>${product.price.toFixed(2)}</TableCell>
+            <TableCell>${Number(product.price).toFixed(2)}</TableCell>
             <TableCell>{product.sales_count}</TableCell>
             <TableCell>
               <Dropdown>

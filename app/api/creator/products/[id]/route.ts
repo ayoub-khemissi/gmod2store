@@ -2,15 +2,40 @@ import { NextRequest } from "next/server";
 
 import { apiSuccess, apiError } from "@/lib/api-response";
 import { ApiError } from "@/lib/api-error";
-import { requireRole } from "@/lib/auth";
-import { getProductById, updateProduct } from "@/services/product.service";
+import { requireNotBanned } from "@/lib/auth";
+import {
+  getProductById,
+  getProductImages,
+  updateProduct,
+} from "@/services/product.service";
+
+export async function GET(
+  _request: NextRequest,
+  { params }: { params: Promise<{ id: string }> },
+) {
+  try {
+    const session = await requireNotBanned();
+    const { id } = await params;
+    const product = await getProductById(Number(id));
+
+    if (!product || product.seller_id !== session.user.id) {
+      throw ApiError.notFound("Product not found");
+    }
+
+    const images = await getProductImages(product.id);
+
+    return apiSuccess({ ...product, images });
+  } catch (error) {
+    return apiError(error);
+  }
+}
 
 export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    const session = await requireRole(["creator", "admin"]);
+    const session = await requireNotBanned();
     const { id } = await params;
     const product = await getProductById(Number(id));
 
@@ -43,7 +68,7 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    const session = await requireRole(["creator", "admin"]);
+    const session = await requireNotBanned();
     const { id } = await params;
     const product = await getProductById(Number(id));
 

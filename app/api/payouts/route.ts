@@ -3,7 +3,7 @@ import { RowDataPacket } from "mysql2/promise";
 
 import { apiSuccess, apiError } from "@/lib/api-response";
 import { ApiError } from "@/lib/api-error";
-import { requireRole } from "@/lib/auth";
+import { requireNotBanned } from "@/lib/auth";
 import { query } from "@/lib/db";
 import { requestPayout } from "@/services/payment.service";
 import type { Payout } from "@/types/payment";
@@ -12,7 +12,7 @@ interface PayoutRow extends RowDataPacket, Payout {}
 
 export async function GET() {
   try {
-    const session = await requireRole(["creator", "admin"]);
+    const session = await requireNotBanned();
     const payouts = await query<PayoutRow[]>(
       "SELECT * FROM payouts WHERE seller_id = ? ORDER BY created_at DESC",
       [session.user.id],
@@ -26,7 +26,7 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await requireRole(["creator", "admin"]);
+    const session = await requireNotBanned();
     const body = await request.json();
 
     if (!body.amount || body.amount <= 0) {

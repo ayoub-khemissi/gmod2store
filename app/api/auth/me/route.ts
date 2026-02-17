@@ -13,6 +13,7 @@ export async function GET() {
     username: session.user.username,
     avatar_url: session.user.avatar_url,
     role: session.user.role,
+    is_banned: session.user.is_banned,
     slug: session.user.slug,
   });
 }

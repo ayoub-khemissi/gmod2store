@@ -53,15 +53,9 @@ export const UserMenu = ({ username, avatarUrl, role }: UserMenuProps) => {
           <DropdownItem key="library" href="/library">
             Library
           </DropdownItem>
-          {(role === "creator" || role === "admin") ? (
-            <DropdownItem key="creator" href="/creator">
-              Creator Dashboard
-            </DropdownItem>
-          ) : (
-            <DropdownItem key="become-creator" href="/creator">
-              Become a Creator
-            </DropdownItem>
-          )}
+          <DropdownItem key="creator" href="/creator">
+            Creator Dashboard
+          </DropdownItem>
           {role === "admin" ? (
             <DropdownItem key="admin" href="/admin">
               Admin Panel

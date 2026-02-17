@@ -2,14 +2,14 @@ import { NextRequest } from "next/server";
 
 import { apiSuccess, apiError } from "@/lib/api-response";
 import { ApiError } from "@/lib/api-error";
-import { requireRole } from "@/lib/auth";
+import { requireNotBanned } from "@/lib/auth";
 import { saveArchive } from "@/services/upload.service";
 
 const MAX_SIZE = Number(process.env.UPLOAD_MAX_SIZE ?? 500) * 1024 * 1024; // MB
 
 export async function POST(request: NextRequest) {
   try {
-    await requireRole(["creator", "admin"]);
+    await requireNotBanned();
 
     const formData = await request.formData();
     const file = formData.get("archive") as File | null;

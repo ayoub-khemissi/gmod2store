@@ -17,18 +17,37 @@ export async function PATCH(
     const userId = parseInt(id, 10);
     const body = await request.json();
 
-    if (!body.role || !VALID_ROLES.includes(body.role)) {
-      throw ApiError.badRequest("Invalid role");
+    const updates: string[] = [];
+    const values: (string | boolean)[] = [];
+
+    if (body.role !== undefined) {
+      if (!VALID_ROLES.includes(body.role)) {
+        throw ApiError.badRequest("Invalid role");
+      }
+      if (userId === session.user.id) {
+        throw ApiError.badRequest("You cannot change your own role");
+      }
+      updates.push("role = ?");
+      values.push(body.role);
     }
 
-    if (userId === session.user.id) {
-      throw ApiError.badRequest("You cannot change your own role");
+    if (body.is_banned !== undefined) {
+      if (typeof body.is_banned !== "boolean") {
+        throw ApiError.badRequest("is_banned must be a boolean");
+      }
+      updates.push("is_banned = ?");
+      values.push(body.is_banned);
     }
 
-    await execute("UPDATE users SET role = ? WHERE id = ?", [
-      body.role,
-      userId,
-    ]);
+    if (updates.length === 0) {
+      throw ApiError.badRequest("No valid fields to update");
+    }
+
+    values.push(String(userId));
+    await execute(
+      `UPDATE users SET ${updates.join(", ")} WHERE id = ?`,
+      values,
+    );
 
     return apiSuccess({ ok: true });
   } catch (error) {

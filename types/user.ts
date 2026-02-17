@@ -6,6 +6,7 @@ export interface User {
   username: string;
   avatar_url: string;
   role: UserRole;
+  is_banned: boolean;
   bio: string | null;
   banner_url: string | null;
   slug: string | null;

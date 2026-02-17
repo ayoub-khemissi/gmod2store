@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 
 import { apiError } from "@/lib/api-response";
-import { requireRole } from "@/lib/auth";
+import { requireNotBanned } from "@/lib/auth";
 import { getPerProductBreakdown } from "@/services/creator.service";
 
 export async function GET() {
   try {
-    const session = await requireRole(["creator", "admin"]);
+    const session = await requireNotBanned();
     const data = await getPerProductBreakdown(session.user.id);
 
     const header = "Product,Sales,Revenue,Rating,Views\n";

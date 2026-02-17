@@ -1,8 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { Input } from "@heroui/input";
 import { Select, SelectItem } from "@heroui/select";
 import { Button } from "@heroui/button";
+import { Chip } from "@heroui/chip";
 
 import { productCategories } from "@/config/categories";
 import type { WizardData } from "./upload-wizard";
@@ -20,6 +22,31 @@ export const StepMetadata = ({
   onNext,
   onPrev,
 }: StepMetadataProps) => {
+  const [tagInput, setTagInput] = useState("");
+
+  const addTag = (value: string) => {
+    const tag = value.trim().toLowerCase();
+
+    if (tag && !data.tags.includes(tag)) {
+      onUpdate({ tags: [...data.tags, tag] });
+    }
+    setTagInput("");
+  };
+
+  const removeTag = (tag: string) => {
+    onUpdate({ tags: data.tags.filter((t) => t !== tag) });
+  };
+
+  const handleTagKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" || e.key === ",") {
+      e.preventDefault();
+      addTag(tagInput);
+    }
+    if (e.key === "Backspace" && !tagInput && data.tags.length > 0) {
+      removeTag(data.tags[data.tags.length - 1]);
+    }
+  };
+
   const canContinue =
     data.title.trim().length >= 3 &&
     data.slug.trim().length >= 3 &&
@@ -56,6 +83,7 @@ export const StepMetadata = ({
 
       <Input
         isRequired
+        description={data.description.trim().length > 0 && data.description.trim().length < 10 ? `${10 - data.description.trim().length} more characters needed` : undefined}
         label="Description"
         placeholder="Describe your product in detail..."
         value={data.description}
@@ -87,20 +115,30 @@ export const StepMetadata = ({
         onValueChange={(v) => onUpdate({ price: Number(v) || 0 })}
       />
 
-      <Input
-        label="Tags (comma-separated)"
-        placeholder="pvp, sandbox, multiplayer"
-        value={data.tags.join(", ")}
-        variant="bordered"
-        onValueChange={(v) =>
-          onUpdate({
-            tags: v
-              .split(",")
-              .map((t) => t.trim())
-              .filter(Boolean),
-          })
-        }
-      />
+      <div className="flex flex-col gap-1.5">
+        <Input
+          label="Tags"
+          placeholder={data.tags.length === 0 ? "Type a tag and press Enter" : "Add another tag..."}
+          value={tagInput}
+          variant="bordered"
+          onKeyDown={handleTagKeyDown}
+          onValueChange={setTagInput}
+        />
+        {data.tags.length > 0 && (
+          <div className="flex flex-wrap gap-1">
+            {data.tags.map((tag) => (
+              <Chip
+                key={tag}
+                size="sm"
+                variant="flat"
+                onClose={() => removeTag(tag)}
+              >
+                {tag}
+              </Chip>
+            ))}
+          </div>
+        )}
+      </div>
 
       <div className="flex gap-3 mt-2">
         <Button variant="flat" onPress={onPrev}>

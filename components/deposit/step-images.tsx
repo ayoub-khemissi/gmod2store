@@ -1,6 +1,5 @@
 "use client";
 
-import { Image } from "@heroui/image";
 import { Button } from "@heroui/button";
 import { Spinner } from "@heroui/spinner";
 import { useRef, useState } from "react";
@@ -68,19 +67,32 @@ export const StepImages = ({
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {data.imageUrls.map((url, index) => (
-          <div key={index} className="relative group">
-            <Image
+          <div key={index} className="relative group rounded-xl overflow-hidden">
+            <img
               alt={`Image ${index + 1}`}
               className="aspect-video object-cover w-full"
-              radius="lg"
               src={url}
             />
             <button
-              className="absolute top-1 right-1 bg-danger text-white rounded-full w-6 h-6 text-xs opacity-0 group-hover:opacity-100 transition-opacity z-10"
+              className="absolute top-2 right-2 bg-black/60 backdrop-blur-sm text-white rounded-full w-7 h-7 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-danger"
               onClick={() => removeImage(index)}
             >
-              X
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeWidth={2}
+                viewBox="0 0 24 24"
+              >
+                <path d="M18 6 6 18M6 6l12 12" />
+              </svg>
             </button>
+            {index === 0 && (
+              <span className="absolute bottom-2 left-2 text-[10px] font-semibold bg-primary/80 backdrop-blur-sm text-white px-2 py-0.5 rounded-full">
+                Thumbnail
+              </span>
+            )}
           </div>
         ))}
 

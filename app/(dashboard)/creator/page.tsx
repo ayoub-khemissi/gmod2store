@@ -33,11 +33,8 @@ export default function CreatorDashboardPage() {
     social_links: Record<string, string>;
   } | null>(null);
 
-  const isCreator =
-    user?.role === "creator" || user?.role === "admin";
-
   const fetchData = useCallback(async () => {
-    if (!isCreator) return;
+    if (!user) return;
     setIsLoading(true);
     try {
       const [statsRes, productsRes, profileRes] = await Promise.all([
@@ -65,7 +62,7 @@ export default function CreatorDashboardPage() {
     } finally {
       setIsLoading(false);
     }
-  }, [isCreator]);
+  }, [user]);
 
   useEffect(() => {
     if (!authLoading) fetchData();
@@ -80,21 +77,6 @@ export default function CreatorDashboardPage() {
             <Skeleton key={i} className="h-24 rounded-xl" />
           ))}
         </div>
-      </div>
-    );
-  }
-
-  if (!isCreator) {
-    return (
-      <div className="flex flex-col items-center justify-center gap-4 py-20">
-        <h1 className={title({ size: "sm" })}>Become a Creator</h1>
-        <p className="text-default-500 text-center max-w-md">
-          Start selling your gamemodes, tools, maps, and assets to the s&box
-          community.
-        </p>
-        <p className="text-default-400 text-sm text-center max-w-md">
-          Contact an admin to request creator access.
-        </p>
       </div>
     );
   }
