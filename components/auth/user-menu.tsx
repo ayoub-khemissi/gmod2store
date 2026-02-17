@@ -8,8 +8,11 @@ import {
   DropdownSection,
 } from "@heroui/dropdown";
 import { Avatar } from "@heroui/avatar";
+import { useRouter } from "next/navigation";
 
 import type { UserRole } from "@/types/user";
+
+import { useAuth } from "@/lib/auth-context";
 
 interface UserMenuProps {
   username: string;
@@ -18,6 +21,15 @@ interface UserMenuProps {
 }
 
 export const UserMenu = ({ username, avatarUrl, role }: UserMenuProps) => {
+  const { refresh } = useAuth();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await fetch("/api/auth/logout");
+    await refresh();
+    router.push("/");
+  };
+
   return (
     <Dropdown placement="bottom-end">
       <DropdownTrigger>
@@ -57,7 +69,7 @@ export const UserMenu = ({ username, avatarUrl, role }: UserMenuProps) => {
           ) : null}
         </DropdownSection>
         <DropdownSection>
-          <DropdownItem key="logout" color="danger" href="/api/auth/logout">
+          <DropdownItem key="logout" color="danger" onPress={handleLogout}>
             Log Out
           </DropdownItem>
         </DropdownSection>
